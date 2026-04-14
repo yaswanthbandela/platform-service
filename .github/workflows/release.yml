@@ -5,6 +5,11 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Image tag to deploy"
+        required: true
+        default: "v1.0.0"
     
 
 jobs:
@@ -37,4 +42,4 @@ jobs:
           git config user.name "GitHub Actions"
           git add kustomization.yml
           git commit -m "chore: update image to ${{ github.ref_name }}"
-          git push
+          git push origin main
