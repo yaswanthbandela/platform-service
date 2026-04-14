@@ -1,0 +1,23 @@
+name: release-web-api
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t yaswanth1995/web-api:${{ github.ref_name }} ./app
+
+      - name: Login DockerHub
+        run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+
+      - name: Push image
+        run: docker push yaswanth1995/web-api:${{ github.ref_name }}

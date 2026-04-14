@@ -1,0 +1,8 @@
+resources:
+  - ../../base
+
+namespace: prod
+
+images:
+  - name: yaswanth1995/web-api
+    newTag: 1.0.0
