@@ -42,4 +42,4 @@ jobs:
           git config user.name "GitHub Actions"
           git add kustomization.yml
           git commit -m "chore: update image to ${{ github.ref_name }}"
-          git push origin main
+          git push origin HEAD:main
