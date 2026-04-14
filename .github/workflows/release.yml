@@ -21,3 +21,13 @@ jobs:
 
       - name: Push image
         run: docker push yaswanth1995/web-api:${{ github.ref_name }}
+        
+      - name: Update image tag in kustomize
+        run: |
+          cd k8s
+          kustomize edit set image yaswanth1995/web-api=yaswanth1995/web-api:${{ github.ref_name }}
+          git config user.email "ci@github.com"
+          git config user.name "GitHub Actions"
+          git add kustomization.yml
+          git commit -m "chore: update image to ${{ github.ref_name }}"
+          git push
