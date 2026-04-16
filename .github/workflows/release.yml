@@ -35,13 +35,13 @@ jobs:
           fi
 
       - name: Build image
-        run: docker build -t yaswanth1995/web-api:${{ github.ref_name }} ./app
+        run: docker build -t yaswanth1995/web-api:${{ env.TAG }} ./app
 
       - name: Login DockerHub
         run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
 
       - name: Push image
-        run: docker push yaswanth1995/web-api:${{ github.ref_name }}
+        run: docker push yaswanth1995/web-api:${{ env.TAG }}
         
       - name: Update image tag in kustomize
         run: |
@@ -50,5 +50,5 @@ jobs:
           git config user.email "ci@github.com"
           git config user.name "GitHub Actions"
           git add kustomization.yml
-          git commit -m "chore: update image to ${{ github.ref_name }}"
+          git commit -m "chore: update image to ${{ env.TAG }}"
           git push origin HEAD:main
